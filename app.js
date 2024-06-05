@@ -46,7 +46,6 @@ module.exports = app;
 
 
 //USE TEST-DRIVEN DEVELOPMENT
-//22 document sqlForPartialUpdate TUESDAY
 //21 write unit tests for sqlForPartialUpdate WEDNESDAY
 //20 add filtering for companies WEDNESDAY
 //19 change authorization to limit some things to logged-in users and some things to admins THURSDAY

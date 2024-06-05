@@ -1,9 +1,5 @@
 const { BadRequestError } = require("../expressError");
 
-// description of input
-// description of output
-// description of errors
-
 /** Helper function supporting update methods. Takes in partial data set for a resource 
  * and returns sections of a valid SQL update query. 
  * 
