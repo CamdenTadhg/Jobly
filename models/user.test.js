@@ -1,4 +1,5 @@
 "use strict";
+process.env.NODE_ENV === "test"
 
 const {
   NotFoundError,
@@ -13,6 +14,8 @@ const {
   commonAfterEach,
   commonAfterAll,
 } = require("./_testCommon");
+
+process.env.NODE_ENV === "test"
 
 beforeAll(commonBeforeAll);
 beforeEach(commonBeforeEach);

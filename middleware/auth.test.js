@@ -1,13 +1,16 @@
 "use strict";
+process.env.NODE_ENV === "test"
 
 const jwt = require("jsonwebtoken");
-const { UnauthorizedError } = require("../expressError");
+const { UnauthorizedError, ForbiddenError } = require("../expressError");
 const {
   authenticateJWT,
   ensureLoggedIn,
   ensureAdmin,
   ensureAdminOrSelf
 } = require("./auth");
+
+process.env.NODE_ENV === "test"
 
 
 const { SECRET_KEY } = require("../config");
@@ -63,7 +66,7 @@ describe("ensureLoggedIn", function () {
   test("works", function () {
     expect.assertions(1);
     const req = {};
-    const res = { locals: { user: { username: "test", is_admin: false } } };
+    const res = { locals: { user: { username: "test", isAdmin: false } } };
     const next = function (err) {
       expect(err).toBeFalsy();
     };
@@ -85,7 +88,7 @@ describe('ensureAdmin', function(){
   test('works', function (){
     expect.assertions(1);
     const req = {};
-    const res = {locals: {user: {username: "test", is_admin: true}}};
+    const res = {locals: {user: {username: "test", isAdmin: true}}};
     const next = function(err){
       expect(err).toBeFalsy();
     };
@@ -95,7 +98,7 @@ describe('ensureAdmin', function(){
   test('forbidden if not admin', function (){
     expect.assertions(1);
     const req = {};
-    const res = {locals: {user: {username: "test", is_admin: false}}};
+    const res = {locals: {user: {username: "test", isAdmin: false}}};
     const next = function(err){
       expect(err instanceof ForbiddenError).toBeTruthy();
     };
@@ -106,8 +109,8 @@ describe('ensureAdmin', function(){
 describe('ensureAdminOrSelf', function(){
   test('works for self', function(){
     expect.assertions(1);
-    const req = {params: 'u1'};
-    const res = {locals: {user: {username: 'u1', is_admin: false}}};
+    const req = {params: {username: 'u1'}};
+    const res = {locals: {user: {username: 'u1', isAdmin: false}}};
     const next = function(err){
       expect(err).toBeFalsy();
     };
@@ -116,8 +119,8 @@ describe('ensureAdminOrSelf', function(){
 
   test('forbidden if user is not matching', function(){
     expect.assertions(1);
-    const req = {params: 'u2'};
-    const res = {locals: {user: {username: 'u1', is_admin: false}}};
+    const req = {params: {username: 'u2'}};
+    const res = {locals: {user: {username: 'u1', isAdmin: false}}};
     const next = function(err){
       expect(err instanceof ForbiddenError).toBeTruthy();
     };
@@ -125,9 +128,9 @@ describe('ensureAdminOrSelf', function(){
   });
 
   test('works for admin', function(){
-    expect.asssertions(1);
-    const req = {params: 'u1'};
-    const res = {locals: {user: {username: 'u3', is_admin: true}}};
+    expect.assertions(1);
+    const req = {params: {username: 'u1'}};
+    const res = {locals: {user: {username: 'u3', isAdmin: true}}};
     const next = function(err){
       expect(err).toBeFalsy();
     };

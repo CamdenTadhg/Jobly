@@ -50,6 +50,7 @@ function ensureLoggedIn(req, res, next) {
 function ensureAdmin(req, res, next){
   try {
     if (!res.locals.user.isAdmin) throw new ForbiddenError();
+    return next();
   } catch (err){
     return next(err);
   }
@@ -65,7 +66,8 @@ function ensureAdminOrSelf(req, res, next){
     let counter = 0;
     if (res.locals.user.isAdmin) counter++;
     if (req.params.username === res.locals.user.username) counter++;
-    if (counter = 0) throw new ForbiddenError();
+    if (counter === 0) throw new ForbiddenError();
+    return next();
   } catch(err){
     return next(err);
   }

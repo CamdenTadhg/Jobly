@@ -1,4 +1,5 @@
 "use strict";
+process.env.NODE_ENV === "test"
 
 const request = require("supertest");
 
@@ -10,6 +11,8 @@ const {
   commonAfterEach,
   commonAfterAll,
 } = require("./_testCommon");
+
+process.env.NODE_ENV === "test"
 
 beforeAll(commonBeforeAll);
 beforeEach(commonBeforeEach);

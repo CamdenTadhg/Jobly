@@ -1,5 +1,8 @@
+process.env.NODE_ENV === "test"
+
 const {sqlForPartialUpdate} = require('./sql')
 const { BadRequestError } = require("../expressError");
+
 
 describe("sqlForPartialUpdate", function () {
     test("works: user", function () {
