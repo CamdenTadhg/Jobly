@@ -11,6 +11,7 @@ const {
   commonAfterEach,
   commonAfterAll,
   u1Token,
+  u3Token
 } = require("./_testCommon");
 
 beforeAll(commonBeforeAll);
@@ -29,16 +30,31 @@ describe("POST /companies", function () {
     numEmployees: 10,
   };
 
-  test("ok for users", async function () {
+  test("ok for admins", async function () {
     const resp = await request(app)
         .post("/companies")
         .send(newCompany)
-        .set("authorization", `Bearer ${u1Token}`);
+        .set("authorization", `Bearer ${u3Token}`);
     expect(resp.statusCode).toEqual(201);
     expect(resp.body).toEqual({
       company: newCompany,
     });
   });
+
+  test('forbidden for users', async function(){
+    const resp = await request(app)
+      .post('/companies')
+      .send(newCompany)
+      .set("authorization", `Bearer ${u1Token}`);
+    expect(resp.statusCode).toEqual(403);
+  })
+
+  test('unauth for anonymous', async function(){
+    const resp = await request(app)
+      .post('/companies')
+      .send(newCompany)
+    expect(resp.statusCode).toEqual(401);
+  })
 
   test("bad request with missing data", async function () {
     const resp = await request(app)
@@ -178,13 +194,13 @@ describe("GET /companies/:handle", function () {
 /************************************** PATCH /companies/:handle */
 
 describe("PATCH /companies/:handle", function () {
-  test("works for users", async function () {
+  test("works for admins", async function () {
     const resp = await request(app)
         .patch(`/companies/c1`)
         .send({
           name: "C1-new",
         })
-        .set("authorization", `Bearer ${u1Token}`);
+        .set("authorization", `Bearer ${u3Token}`);
     expect(resp.body).toEqual({
       company: {
         handle: "c1",
@@ -195,6 +211,16 @@ describe("PATCH /companies/:handle", function () {
       },
     });
   });
+
+  test('forbidden for users', async function(){
+    const resp = await request(app)
+      .patch('/companies/c1')
+      .send({
+        name: "C1-new"
+      })
+      .set("authorization", `Bearer ${u1Token}`);
+    expect(resp.statusCode).toEqual(403);
+  })
 
   test("unauth for anon", async function () {
     const resp = await request(app)
@@ -239,12 +265,19 @@ describe("PATCH /companies/:handle", function () {
 /************************************** DELETE /companies/:handle */
 
 describe("DELETE /companies/:handle", function () {
-  test("works for users", async function () {
+  test("works for admins", async function () {
     const resp = await request(app)
         .delete(`/companies/c1`)
-        .set("authorization", `Bearer ${u1Token}`);
+        .set("authorization", `Bearer ${u3Token}`);
     expect(resp.body).toEqual({ deleted: "c1" });
   });
+
+  test('forbidden for users', async function() {
+    const resp = await request(app)
+      .delete(`/companies/c1`)
+      .set("authorization", `Bearer ${u1Token}`);
+    expect(resp.statusCode).toEqual(403);
+  })
 
   test("unauth for anon", async function () {
     const resp = await request(app)

@@ -12,6 +12,8 @@ const {
   commonAfterEach,
   commonAfterAll,
   u1Token,
+  u2Token,
+  u3Token
 } = require("./_testCommon");
 
 beforeAll(commonBeforeAll);
@@ -22,7 +24,7 @@ afterAll(commonAfterAll);
 /************************************** POST /users */
 
 describe("POST /users", function () {
-  test("works for users: create non-admin", async function () {
+  test("works for admins: create non-admin", async function () {
     const resp = await request(app)
         .post("/users")
         .send({
@@ -33,7 +35,7 @@ describe("POST /users", function () {
           email: "new@email.com",
           isAdmin: false,
         })
-        .set("authorization", `Bearer ${u1Token}`);
+        .set("authorization", `Bearer ${u3Token}`);
     expect(resp.statusCode).toEqual(201);
     expect(resp.body).toEqual({
       user: {
@@ -46,7 +48,7 @@ describe("POST /users", function () {
     });
   });
 
-  test("works for users: create admin", async function () {
+  test("works for admins: create admin", async function () {
     const resp = await request(app)
         .post("/users")
         .send({
@@ -57,7 +59,7 @@ describe("POST /users", function () {
           email: "new@email.com",
           isAdmin: true,
         })
-        .set("authorization", `Bearer ${u1Token}`);
+        .set("authorization", `Bearer ${u3Token}`);
     expect(resp.statusCode).toEqual(201);
     expect(resp.body).toEqual({
       user: {
@@ -69,6 +71,21 @@ describe("POST /users", function () {
       }, token: expect.any(String),
     });
   });
+
+  test('forbidden for users', async function(){
+    const resp = await request(app)
+      .post('/users')
+      .send({
+        username: "u-new",
+        firstName: "First-new",
+        lastName: "Last-newL",
+        password: "password-new",
+        email: "new@email.com",
+        isAdmin: true,
+      })
+      .set('authorization', `Bearer ${u1Token}`);
+    expect(resp.statusCode).toEqual(403);
+  })
 
   test("unauth for anon", async function () {
     const resp = await request(app)
@@ -113,10 +130,10 @@ describe("POST /users", function () {
 /************************************** GET /users */
 
 describe("GET /users", function () {
-  test("works for users", async function () {
+  test("works for admins", async function () {
     const resp = await request(app)
         .get("/users")
-        .set("authorization", `Bearer ${u1Token}`);
+        .set("authorization", `Bearer ${u3Token}`);
     expect(resp.body).toEqual({
       users: [
         {
@@ -144,6 +161,13 @@ describe("GET /users", function () {
     });
   });
 
+  test('forbidden for users', async function() {
+    const resp = await request(app)
+      .get('/users')
+      .set('authorization', `Bearer ${u1Token}`);
+    expect(resp.statusCode).toEqual(403);
+  })
+
   test("unauth for anon", async function () {
     const resp = await request(app)
         .get("/users");
@@ -165,7 +189,22 @@ describe("GET /users", function () {
 /************************************** GET /users/:username */
 
 describe("GET /users/:username", function () {
-  test("works for users", async function () {
+  test("works for admins", async function () {
+    const resp = await request(app)
+        .get(`/users/u1`)
+        .set("authorization", `Bearer ${u3Token}`);
+    expect(resp.body).toEqual({
+      user: {
+        username: "u1",
+        firstName: "U1F",
+        lastName: "U1L",
+        email: "user1@user.com",
+        isAdmin: false,
+      },
+    });
+  });
+
+  test('works for matching user', async function() {
     const resp = await request(app)
         .get(`/users/u1`)
         .set("authorization", `Bearer ${u1Token}`);
@@ -178,6 +217,13 @@ describe("GET /users/:username", function () {
         isAdmin: false,
       },
     });
+  });
+
+  test('forbidden for other users', async function(){
+    const resp = await request(app)
+      .get('/users/u1')
+      .set('authorization', `Bearer ${u2Token}`);
+    expect(resp.statusCode).toEqual(403);
   });
 
   test("unauth for anon", async function () {
@@ -197,7 +243,25 @@ describe("GET /users/:username", function () {
 /************************************** PATCH /users/:username */
 
 describe("PATCH /users/:username", () => {
-  test("works for users", async function () {
+  test("works for admins", async function () {
+    const resp = await request(app)
+        .patch(`/users/u1`)
+        .send({
+          firstName: "New",
+        })
+        .set("authorization", `Bearer ${u3Token}`);
+    expect(resp.body).toEqual({
+      user: {
+        username: "u1",
+        firstName: "New",
+        lastName: "U1L",
+        email: "user1@user.com",
+        isAdmin: false,
+      },
+    });
+  });
+
+  test("works for matching user", async function () {
     const resp = await request(app)
         .patch(`/users/u1`)
         .send({
@@ -214,6 +278,16 @@ describe("PATCH /users/:username", () => {
       },
     });
   });
+
+  test('forbidden for other users', async function (){
+    const resp = await request(app)
+      .patch(`/users/u1`)
+      .send({
+        firstName: "New"
+      })
+      .set('authorization', `Bearer ${u2Token}`);
+    expect(resp.statusCode).toEqual(403);
+  })
 
   test("unauth for anon", async function () {
     const resp = await request(app)
@@ -268,11 +342,25 @@ describe("PATCH /users/:username", () => {
 /************************************** DELETE /users/:username */
 
 describe("DELETE /users/:username", function () {
-  test("works for users", async function () {
+  test("works for admins", async function () {
+    const resp = await request(app)
+        .delete(`/users/u1`)
+        .set("authorization", `Bearer ${u3Token}`);
+    expect(resp.body).toEqual({ deleted: "u1" });
+  });
+
+  test("works for matching user", async function () {
     const resp = await request(app)
         .delete(`/users/u1`)
         .set("authorization", `Bearer ${u1Token}`);
     expect(resp.body).toEqual({ deleted: "u1" });
+  });
+
+  test('forbidden for other users', async function(){
+    const resp = await request(app)
+      .delete('/users/u1')
+      .set('authorization', `Bearer ${u2Token}`);
+    expect(resp.statusCode).toEqual(403);
   });
 
   test("unauth for anon", async function () {

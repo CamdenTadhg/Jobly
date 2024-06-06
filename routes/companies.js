@@ -40,11 +40,6 @@ router.post("/", ensureLoggedIn, async function (req, res, next) {
   }
 });
 
-/**Extraneous: checks whether the array of keys contains any values other than 
- * name, minEmployee, maxEmployee
- */
-
-const extraneous = (element) => element != 'name' && element != 'minEmployees' && element != 'maxEmployees';
 
 /** GET /  =>
  *   { companies: [ { handle, name, description, numEmployees, logoUrl }, ...] }
