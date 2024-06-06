@@ -11,6 +11,7 @@ const { authenticateJWT } = require("./middleware/auth");
 const authRoutes = require("./routes/auth");
 const companiesRoutes = require("./routes/companies");
 const usersRoutes = require("./routes/users");
+const jobsRoutes = require("./routes/jobs");
 
 const morgan = require("morgan");
 
@@ -24,6 +25,7 @@ app.use(authenticateJWT);
 app.use("/auth", authRoutes);
 app.use("/companies", companiesRoutes);
 app.use("/users", usersRoutes);
+app.use("/jobs", jobsRoutes);
 
 
 /** Handle 404 errors -- this matches everything */
@@ -46,23 +48,18 @@ module.exports = app;
 
 
 //USE TEST-DRIVEN DEVELOPMENT
-//19 change authorization to limit some things to logged-in users and some things to admins THURSDAY
-  // add isAdmin middleware to creating, updating, and deleting companies
-  // add isAdmin middleware to creating users and getting a list of all users
-  // add isAdminOrSelf middleware to getting details, updating, or deleting a user
-//18 look at table for jobs THURSDAY
-//17 add a model for jobs THURSDAY
-//16 write tests for the model THURSDAY
-//15 add routes for jobs (same as companies, minus the filtering) THURSDAY
-//14 write tests for the routs THURSDAY
+//17 write tests for a jobs model THURSDAY
+//16 add a model for jobs THURSDAY
+//15 write tests for jobs routes THURSDAY
+//14 add routes for jobs (same as companies, minus the filtering) THURSDAY
 //13 add filtering for jobs THURSDAY
 //12 write comprehensive tests and documentation for filtering FRIDAY
 //11 change companies get detail to list available jobs SATURDAY
 //10 look at table for applications SATURDAY
-//9 add method to user model allowing applications for job SATURDAY
-//8 add post route to allow applications for jobs MONDAY
-//7 change output for get user info so that it lists jobids the user has applied for TUESDAY
-//6 write tests and documentation for jobs functionality TUESDAY
+//9 write tests and documentation for jobs functionality TUESDAY
+//8 add method to user model allowing applications for job SATURDAY
+//7 add post route to allow applications for jobs MONDAY
+//6 change output for get user info so that it lists jobids the user has applied for TUESDAY
 
 //5 add choosing random password functionality
 //4 add enum type to application state functionality

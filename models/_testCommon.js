@@ -28,6 +28,19 @@ async function commonBeforeAll() {
         await bcrypt.hash("password1", BCRYPT_WORK_FACTOR),
         await bcrypt.hash("password2", BCRYPT_WORK_FACTOR),
       ]);
+  
+  await db.query(`
+        INSERT INTO jobs(title,
+                        salary,
+                        equity,
+                        company_handle)
+        VALUES ('librarian', 75000, 0, 'c1'),
+               ('software engineer', 150000, 0.356, 'c2'),
+               ('arborist', 55000, 0, 'c3')`);
+  librarianId = db.query(`
+                      SELECT id 
+                      FROM jobs
+                      WHERE title = "librarian`);
 }
 
 async function commonBeforeEach() {
@@ -48,4 +61,5 @@ module.exports = {
   commonBeforeEach,
   commonAfterEach,
   commonAfterAll,
+  librarianId
 };
