@@ -11,6 +11,7 @@ const Company = require("../models/company");
 
 const companyNewSchema = require("../schemas/companyNew.json");
 const companyUpdateSchema = require("../schemas/companyUpdate.json");
+const { rawListeners } = require("../app");
 
 const router = new express.Router();
 
@@ -39,6 +40,12 @@ router.post("/", ensureLoggedIn, async function (req, res, next) {
   }
 });
 
+/**Extraneous: checks whether the array of keys contains any values other than 
+ * name, minEmployee, maxEmployee
+ */
+
+const extraneous = (element) => element != 'name' && element != 'minEmployees' && element != 'maxEmployees';
+
 /** GET /  =>
  *   { companies: [ { handle, name, description, numEmployees, logoUrl }, ...] }
  *
@@ -52,6 +59,23 @@ router.post("/", ensureLoggedIn, async function (req, res, next) {
 
 router.get("/", async function (req, res, next) {
   try {
+    if (req.query.name || req.query.minEmployees || req.query.maxEmployees){
+      if (req.query.minEmployees){
+        req.query.minEmployees = parseInt(req.query.minEmployees);
+      }
+      if (req.query.maxEmployees){
+        req.query.maxEmployees = parseInt(req.query.maxEmployees);
+      }
+      if (isNaN(req.query.minEmployees) || isNaN(req.query.maxEmployees)){
+        throw new BadRequestError('maxEmployees & minEmployees must be numbers')
+      }
+      const keys = Object.keys(req.query);
+      if (keys.some((element) => element != 'name' && element != 'minEmployees' && element != 'maxEmployees')){
+        throw new BadRequestError('Invalid filter criteria present');
+      }
+      const filteredCompanies = await Company.filter(req.query);
+      return res.json({companies: filteredCompanies});
+    }
     const companies = await Company.findAll();
     return res.json({ companies });
   } catch (err) {
