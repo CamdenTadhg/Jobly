@@ -5,6 +5,8 @@ const { UnauthorizedError } = require("../expressError");
 const {
   authenticateJWT,
   ensureLoggedIn,
+  ensureAdmin,
+  ensureAdminOrSelf
 } = require("./auth");
 
 
@@ -76,5 +78,59 @@ describe("ensureLoggedIn", function () {
       expect(err instanceof UnauthorizedError).toBeTruthy();
     };
     ensureLoggedIn(req, res, next);
+  });
+});
+
+describe('ensureAdmin', function(){
+  test('works', function (){
+    expect.assertions(1);
+    const req = {};
+    const res = {locals: {user: {username: "test", is_admin: true}}};
+    const next = function(err){
+      expect(err).toBeFalsy();
+    };
+    ensureAdmin(req, res, next);
+  });
+
+  test('forbidden if not admin', function (){
+    expect.assertions(1);
+    const req = {};
+    const res = {locals: {user: {username: "test", is_admin: false}}};
+    const next = function(err){
+      expect(err instanceof ForbiddenError).toBeTruthy();
+    };
+    ensureAdmin(req, res, next);
+  });
+});
+
+describe('ensureAdminOrSelf', function(){
+  test('works for self', function(){
+    expect.assertions(1);
+    const req = {params: 'u1'};
+    const res = {locals: {user: {username: 'u1', is_admin: false}}};
+    const next = function(err){
+      expect(err).toBeFalsy();
+    };
+    ensureAdminOrSelf(req, res, next);
+  });
+
+  test('forbidden if user is not matching', function(){
+    expect.assertions(1);
+    const req = {params: 'u2'};
+    const res = {locals: {user: {username: 'u1', is_admin: false}}};
+    const next = function(err){
+      expect(err instanceof ForbiddenError).toBeTruthy();
+    };
+    ensureAdminOrSelf(req, res, next);
+  });
+
+  test('works for admin', function(){
+    expect.asssertions(1);
+    const req = {params: 'u1'};
+    const res = {locals: {user: {username: 'u3', is_admin: true}}};
+    const next = function(err){
+      expect(err).toBeFalsy();
+    };
+    ensureAdminOrSelf(req, res, next);
   });
 });

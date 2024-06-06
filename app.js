@@ -47,12 +47,10 @@ module.exports = app;
 
 //USE TEST-DRIVEN DEVELOPMENT
 //19 change authorization to limit some things to logged-in users and some things to admins THURSDAY
-  //create isAdmin middleware
+  // create isAdminOrSelf middleware
   //add isAdmin middleware to creating, updating, and deleting companies
   // add isAdmin middleware to creating users and getting a list of all users
-  // add is Admin middleware to getting details, updating, or deleteing a user
-  // create isSelf middleware
-  // add isSelf middleware to getting details, updating, or deleting a user
+  // add isAdminOrSelf middleware to getting details, updating, or deleting a user
 //18 look at table for jobs THURSDAY
 //17 add a model for jobs THURSDAY
 //16 write tests for the model THURSDAY
