@@ -46,8 +46,16 @@ module.exports = app;
 
 
 //USE TEST-DRIVEN DEVELOPMENT
-//21 write unit tests for sqlForPartialUpdate WEDNESDAY
 //20 add filtering for companies WEDNESDAY
+  // create filter method in company.js
+    // name needs to do a case-insensitive search
+    // min & max need to be checked against each other
+    // create the sql needed to add to the query
+  // add validation code to companies route
+    //validate no extraneous filters
+    //validate that min & max are numbers
+  // add filtering code to companies route
+  // run tests
 //19 change authorization to limit some things to logged-in users and some things to admins THURSDAY
 //18 look at table for jobs THURSDAY
 //17 add a model for jobs THURSDAY

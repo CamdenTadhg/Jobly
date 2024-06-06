@@ -96,6 +96,38 @@ describe("GET /companies", function () {
     });
   });
 
+  test('filter by all three', async function(){
+    const resp = await request(app).get("/companies?name=c&minEmployees=0&maxEmployees=2")
+    expect(resp.body).toEqual({
+      companies:
+          [
+            {
+              handle: "c1",
+              name: "C1",
+              description: "Desc1",
+              numEmployees: 1,
+              logoUrl: "http://c1.img",
+            },
+            {
+              handle: "c2",
+              name: "C2",
+              description: "Desc2",
+              numEmployees: 2,
+              logoUrl: "http://c2.img",
+            }
+          ]
+    });
+  });
+  test('fails: extraneous filters', async function(){
+    const resp = await request(app).get("/companies?name=c&state=CA");
+    expect(resp.statusCode).toEqual(400);
+  });
+
+  test('fails: wrong data type', async function(){
+    const resp = await request(app).get('/companies?name=c&minEmployees=b');
+    expect(resp.statusCode).toEqual(400);
+  })
+
   test("fails: test next() handler", async function () {
     // there's no normal failure event which will cause this route to fail ---
     // thus making it hard to test that the error-handler works with it. This
