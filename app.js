@@ -48,7 +48,6 @@ module.exports = app;
 
 
 //USE TEST-DRIVEN DEVELOPMENT
-//17 write tests for a jobs model THURSDAY
 //16 add a model for jobs THURSDAY
 //15 write tests for jobs routes THURSDAY
 //14 add routes for jobs (same as companies, minus the filtering) THURSDAY

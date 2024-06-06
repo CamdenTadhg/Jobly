@@ -37,11 +37,9 @@ async function commonBeforeAll() {
         VALUES ('librarian', 75000, 0, 'c1'),
                ('software engineer', 150000, 0.356, 'c2'),
                ('arborist', 55000, 0, 'c3')`);
-  librarianId = db.query(`
-                      SELECT id 
-                      FROM jobs
-                      WHERE title = "librarian`);
 }
+
+
 
 async function commonBeforeEach() {
   await db.query("BEGIN");
@@ -61,5 +59,4 @@ module.exports = {
   commonBeforeEach,
   commonAfterEach,
   commonAfterAll,
-  librarianId
 };

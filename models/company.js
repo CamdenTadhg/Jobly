@@ -61,7 +61,9 @@ class Company {
     return companiesRes.rows;
   }
 
-  /** Filters from all companies based on name, maxEmployees, minEmployees
+  /** Filters from all companies based on name, maxEmployees, and/or minEmployees
+   * 
+   * filters can include {name, minEmployees, maxEmployees}
    * 
    * returns [{handle, name, description, numEmployees, logoUrl}, ...]
    * 
@@ -133,9 +135,9 @@ class Company {
    * This is a "partial update" --- it's fine if data doesn't contain all the
    * fields; this only changes provided ones.
    *
-   * Data can include: {name, description, numEmployees, logoUrl}
+   * Data can include: {title, salary, equity}
    *
-   * Returns {handle, name, description, numEmployees, logoUrl}
+   * Returns {id, title, salary, equity, companyHandle}
    *
    * Throws NotFoundError if not found.
    */
