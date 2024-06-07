@@ -171,6 +171,18 @@ describe("GET /companies/:handle", function () {
         description: "Desc1",
         numEmployees: 1,
         logoUrl: "http://c1.img",
+        jobs: [{
+          id: expect.any(Number),
+          title: 'librarian', 
+          salary: 75000,
+          equity: "0",
+        },
+        {
+          id: expect.any(Number),
+          title: 'software engineer',
+          salary: 150000, 
+          equity: "0.356"
+        }]
       },
     });
   });
@@ -184,6 +196,7 @@ describe("GET /companies/:handle", function () {
         description: "Desc2",
         numEmployees: 2,
         logoUrl: "http://c2.img",
+        jobs: []
       },
     });
   });

@@ -111,7 +111,7 @@ describe("GET /jobs", function () {
               title: 'software engineer', 
               salary: 150000,
               equity: "0.356",
-              companyHandle: 'c2'
+              companyHandle: 'c1'
             },
             {
               id: expect.any(Number),
@@ -135,7 +135,7 @@ describe("GET /jobs", function () {
                 title: 'software engineer', 
                 salary: 150000,
                 equity: "0.356",
-                companyHandle: 'c2'
+                companyHandle: 'c1'
             }
           ]
     });

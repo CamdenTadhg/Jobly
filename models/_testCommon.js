@@ -35,7 +35,7 @@ async function commonBeforeAll() {
                         equity,
                         company_handle)
         VALUES ('librarian', 75000, 0, 'c1'),
-               ('software engineer', 150000, 0.356, 'c2'),
+               ('software engineer', 150000, 0.356, 'c1'),
                ('arborist', 55000, 0, 'c3')`);
 }
 

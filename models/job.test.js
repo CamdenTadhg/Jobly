@@ -82,7 +82,7 @@ describe("create", function () {
           title: "software engineer",
           salary: 150000,
           equity: "0.356",
-          companyHandle: 'c2'
+          companyHandle: 'c1'
         },
         {
           id: librarianId,
@@ -118,7 +118,7 @@ describe("create", function () {
           title: "software engineer",
           salary: 150000,
           equity: "0.356",
-          companyHandle: 'c2'
+          companyHandle: 'c1'
         },
         {
             id: librarianId,
@@ -137,7 +137,7 @@ describe("create", function () {
             title: "software engineer",
             salary: 150000,
             equity: "0.356",
-            companyHandle: 'c2'
+            companyHandle: 'c1'
         }
       ]);
     });
@@ -156,7 +156,7 @@ describe("create", function () {
                 title: "software engineer",
                 salary: 150000,
                 equity: "0.356",
-                companyHandle: 'c2'
+                companyHandle: 'c1'
               },
               {
                 id: librarianId,

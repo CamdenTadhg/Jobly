@@ -123,8 +123,8 @@ class Job {
             FROM companies
             WHERE handle = $1`,
         [companyHandle]
-    )
-    job.company = companyRes.rows[0]
+    );
+    job.company = companyRes.rows[0];
     return job;
   }
 
