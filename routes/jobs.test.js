@@ -19,7 +19,7 @@ let librarianId;
 
 beforeAll(async () => {
     await commonBeforeAll()
-    const librarian = await db.query(`SELECT id FROM jobs WHERE title = 'librarian`);
+    const librarian = await db.query(`SELECT id FROM jobs WHERE title = 'librarian'`);
     librarianId = librarian.rows[0].id;
 });
 beforeEach(commonBeforeEach);
@@ -83,7 +83,7 @@ describe("POST /jobs", function () {
     const resp = await request(app)
         .post("/jobs")
         .send({
-          ...newCompany,
+          ...newJob,
           salary: "not-a-salary",
         })
         .set("authorization", `Bearer ${u3Token}`);
@@ -126,9 +126,9 @@ describe("GET /jobs", function () {
 
 
   test('filter by all three', async function(){
-    const resp = await request(app).get("/jobs?title=engineer&minSalary=1000&equity=true")
+    const resp = await request(app).get("/jobs?title=engineer&minSalary=1000&hasEquity=true")
     expect(resp.body).toEqual({
-      companies:
+      jobs:
           [
             {
                 id: expect.any(Number),
@@ -147,7 +147,7 @@ describe("GET /jobs", function () {
   });
 
   test('fails: wrong data type', async function(){
-    const resp = await request(app).get('/jobs?name=soft&minSalary=b');
+    const resp = await request(app).get('/jobs?name=soft&hasEquity=0');
     expect(resp.statusCode).toEqual(400);
   });
 });
@@ -182,7 +182,7 @@ describe("GET /jobs/:id", function () {
 
 /************************************** PATCH /jobs/:handle */
 
-describe("PATCH /jobs/:handle", function () {
+describe("PATCH /jobs/:id", function () {
   test("works for admins", async function () {
     const resp = await request(app)
         .patch(`/jobs/${librarianId}`)
@@ -196,13 +196,7 @@ describe("PATCH /jobs/:handle", function () {
         title: "senior librarian",
         salary: 75000,
         equity: "0",
-        company: {
-            handle: 'c1',
-            name: 'C1', 
-            numEmployees: 1,
-            description: 'Desc1',
-            logoUrl: "http://c1.img"
-        }
+        companyHandle: 'c1'
       }
     });
   });
@@ -226,11 +220,11 @@ describe("PATCH /jobs/:handle", function () {
     expect(resp.statusCode).toEqual(401);
   });
 
-  test("not found on no such company", async function () {
+  test("not found on no such job", async function () {
     const resp = await request(app)
         .patch(`/jobs/0`)
         .send({
-          name: "new nope",
+          title: "new nope",
         })
         .set("authorization", `Bearer ${u3Token}`);
     expect(resp.statusCode).toEqual(404);
@@ -238,7 +232,7 @@ describe("PATCH /jobs/:handle", function () {
 
   test("bad request on company change attempt", async function () {
     const resp = await request(app)
-        .patch(`/jobs/${libraianId}`)
+        .patch(`/jobs/${librarianId}`)
         .send({
           companyHandle: "c1-new",
         })
