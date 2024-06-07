@@ -48,21 +48,15 @@ module.exports = app;
 
 
 //USE TEST-DRIVEN DEVELOPMENT
-//16 add a model for jobs THURSDAY
-//15 write tests for jobs routes THURSDAY
-//14 add routes for jobs (same as companies, minus the filtering) THURSDAY
-//13 add filtering for jobs THURSDAY
-//12 write comprehensive tests and documentation for filtering FRIDAY
-//11 change companies get detail to list available jobs SATURDAY
-//10 look at table for applications SATURDAY
-//9 write tests and documentation for jobs functionality TUESDAY
-//8 add method to user model allowing applications for job SATURDAY
-//7 add post route to allow applications for jobs MONDAY
-//6 change output for get user info so that it lists jobids the user has applied for TUESDAY
+//11 add routes for jobs (same as companies) THURSDAY
+//10 change companies get detail to list available jobs FRIDAY
+//9 look at table for applications FRIDAY
+//8 write tests and documentation for applications functionality SATURDAY
+//7 add method to user model allowing applications for job SATURDAY
+//6 add post route to allow applications for jobs MONDAY
+//5 change output for get user info so that it lists jobids the user has applied for TUESDAY
 
-//5 add choosing random password functionality
-//4 add enum type to application state functionality
-//3 add technologies for jobs (table, model, display in appropriate places)
-//2 add technologies for users (table, model, display in appropriate places)
-
-//1 add functionality to require a secure password
+//4 add choosing random password functionality
+//3 add enum type to application state functionality
+//2 add technologies for jobs (table, model, display in appropriate places)
+//1 add technologies for users (table, model, display in appropriate places)
