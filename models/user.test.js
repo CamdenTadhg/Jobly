@@ -17,7 +17,13 @@ const {
 
 process.env.NODE_ENV === "test"
 
-beforeAll(commonBeforeAll);
+let librarianId;
+
+beforeAll(async () => {
+  await commonBeforeAll();
+  const librarian = await db.query(`SELECT id FROM jobs WHERE title = 'librarian'`);
+  librarianId = librarian.rows[0].id
+});
 beforeEach(commonBeforeEach);
 afterEach(commonAfterEach);
 afterAll(commonAfterAll);
@@ -231,3 +237,49 @@ describe("remove", function () {
     }
   });
 });
+
+/************************************** apply */
+
+describe('apply', function(){
+  test('works', async function() {
+    const application = await User.apply("u1", librarianId);
+    expect(application).toEqual({
+      username: 'u1',
+      job_id: librarianId
+    });
+    const res = await db.query(
+      `SELECT * FROM applications WHERE username = 'u1' AND job_id = ${librarianId}`
+    );
+    expect(res.rows.length).toEqual(1);
+  });
+
+  test('BadRequest if duplicate application', async function(){
+    try{
+      await User.apply('u2', librarianId);
+      fail();
+    } catch (err){
+      expect(err instanceof BadRequestError).toBeTruthy();
+    }
+  });
+
+  test('NotFound if user not found', async function(){
+    try{
+      await User.apply('nope', librarianId);
+      fail();
+    } catch (err){
+      expect(err instanceof NotFoundError).toBeTruthy();
+      expect(err.message).toEqual(`No user: nope`);
+    }
+  });
+
+  test(`NotFound if jobId not found`, async function(){
+    try{
+      await User.apply('u1', 0);
+      fail();
+    } catch(err){
+      expect(err instanceof NotFoundError).toBeTruthy();
+      expect(err.message).toEqual(`No job with id of 0`)
+    }
+  })
+});
+

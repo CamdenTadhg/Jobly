@@ -7,6 +7,7 @@ const {
   NotFoundError,
   BadRequestError,
   UnauthorizedError,
+  ExpressError,
 } = require("../expressError");
 
 const { BCRYPT_WORK_FACTOR } = require("../config.js");
@@ -205,6 +206,40 @@ class User {
 
     if (!user) throw new NotFoundError(`No user: ${username}`);
   }
+
+  /** Apply for a job
+   * 
+   * inputs: username, jobId
+   * return undefined. 
+   * 
+   * NotFoundError if username or jobId not found
+   * BadRequest error if user has already applied for this job
+   */
+
+  static async apply(username, jobId){
+    console.log('User.apply started');  
+    try{
+      let result = await db.query(
+        `INSERT INTO applications
+        (username, job_id) 
+        VALUES ($1, $2)
+        RETURNING username, job_id`,
+        [username, jobId]
+      );
+      return result.rows[0]
+    } catch(e){
+      if (e.code === "23505"){
+        throw new BadRequestError(`${username} has already applied for job ${jobId}`, 400);
+      }
+      if (e.code === "23503" && e.detail.includes('jobs') ){
+        throw new NotFoundError(`No job with id of ${jobId}`);
+      }
+      if (e.code === "23503" && e.detail.includes('users')){
+        throw new NotFoundError(`No user: ${username}`);
+      }
+    }
+  }
+
 }
 
 

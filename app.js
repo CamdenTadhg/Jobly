@@ -48,10 +48,7 @@ module.exports = app;
 
 
 //USE TEST-DRIVEN DEVELOPMENT
-//10 change companies get detail to list available jobs FRIDAY
-//9 look at table for applications FRIDAY
-//8 write tests and documentation for applications functionality SATURDAY
-//7 add method to user model allowing applications for job SATURDAY
+//7 write tests and documentation for applications route SATURDAY
 //6 add post route to allow applications for jobs MONDAY
 //5 change output for get user info so that it lists jobids the user has applied for TUESDAY
 
