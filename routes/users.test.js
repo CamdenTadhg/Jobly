@@ -17,7 +17,13 @@ const {
   u3Token
 } = require("./_testCommon");
 
-beforeAll(commonBeforeAll);
+let librarianId;
+
+beforeAll(async () => {
+  await commonBeforeAll()
+  const librarian = await db.query(`SELECT id FROM jobs WHERE title = 'librarian'`);
+  librarianId = librarian.rows[0].id;
+});
 beforeEach(commonBeforeEach);
 afterEach(commonAfterEach);
 afterAll(commonAfterAll);
@@ -192,16 +198,22 @@ describe("GET /users", function () {
 describe("GET /users/:username", function () {
   test("works for admins", async function () {
     const resp = await request(app)
-        .get(`/users/u1`)
+        .get(`/users/u2`)
         .set("authorization", `Bearer ${u3Token}`);
     expect(resp.body).toEqual({
       user: {
-        username: "u1",
-        firstName: "U1F",
-        lastName: "U1L",
-        email: "user1@user.com",
+        username: "u2",
+        firstName: "U2F",
+        lastName: "U2L",
+        email: "user2@user.com",
         isAdmin: false,
-      },
+        jobs: [{
+          id: librarianId,
+          title: 'librarian', 
+          companyHandle: 'c1', 
+          companyName: 'C1'
+        }]
+      }
     });
   });
 
@@ -216,6 +228,7 @@ describe("GET /users/:username", function () {
         lastName: "U1L",
         email: "user1@user.com",
         isAdmin: false,
+        jobs: []
       },
     });
   });
@@ -377,3 +390,56 @@ describe("DELETE /users/:username", function () {
     expect(resp.statusCode).toEqual(404);
   });
 });
+
+/************************************** POST /users/:username/jobs/:id */
+
+describe('POST /users/:username/jobs/:id', function(){
+  test('works for admins', async function (){
+    const resp = await request(app)
+        .post(`/users/u1/jobs/${librarianId}`)
+        .set('authorization', `Bearer ${u3Token}`);
+    expect(resp.body).toEqual({applied: librarianId});
+  });
+
+  test('works for matching user', async function(){
+    const resp = await request(app)
+        .post(`/users/u1/jobs/${librarianId}`)
+        .set('authorization', `Bearer ${u1Token}`);
+    expect(resp.body).toEqual({applied: librarianId});
+  });
+
+  test('forbidden for other users', async function(){
+    const resp = await request(app)
+        .post(`/users/u1/jobs/${librarianId}`)
+        .set('authorization', `Bearer ${u2Token}`);
+    expect(resp.statusCode).toEqual(403);
+  });
+
+  test('unauth for anon', async function(){
+    const resp = await request(app)
+        .post(`/users/u1/jobs/${librarianId}`)
+    expect(resp.statusCode).toEqual(401);
+  });
+
+  test('not found if user not valid', async function(){
+    const resp = await request(app)
+        .post(`/users/nope/jobs/${librarianId}`)
+        .set('authorization', `Bearer ${u3Token}`);
+    expect(resp.statusCode).toEqual(404);
+  });
+
+  test('not found if job id not valid', async function(){
+    const resp = await request(app)
+        .post(`/users/u1/jobs/0`)
+        .set('authorization', `Bearer ${u3Token}`);
+    expect(resp.statusCode).toEqual(404)
+  });
+
+  test('bad request if already applied', async function(){
+    const resp = await request(app)
+        .post(`/users/u2/jobs/${librarianId}`)
+        .set('authorization', `Bearer ${u3Token}`);
+    expect(resp.statusCode).toEqual(400)
+  });
+});
+

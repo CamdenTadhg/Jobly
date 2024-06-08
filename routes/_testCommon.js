@@ -81,7 +81,13 @@ async function commonBeforeAll() {
     salary: 55000, 
     equity: 0, 
     companyHandle: 'c3'
-  })
+  });
+  const librarian = await db.query(`
+    SELECT id
+    FROM jobs
+    WHERE title = 'librarian'`);
+  const librarianId = librarian.rows[0].id
+  await User.apply('u2', librarianId);
 }
 
 async function commonBeforeEach() {

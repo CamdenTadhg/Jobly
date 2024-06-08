@@ -142,13 +142,18 @@ describe("findAll", function () {
 
 describe("get", function () {
   test("works", async function () {
-    let user = await User.get("u1");
+    let user = await User.get("u2");
     expect(user).toEqual({
-      username: "u1",
-      firstName: "U1F",
-      lastName: "U1L",
-      email: "u1@email.com",
+      username: "u2",
+      firstName: "U2F",
+      lastName: "U2L",
+      email: "u2@email.com",
       isAdmin: false,
+      jobs: [{
+        id: librarianId,
+        title: 'librarian', 
+        companyHandle: 'c1',
+        companyName :'C1'}]
     });
   });
 

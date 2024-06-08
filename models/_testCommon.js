@@ -38,11 +38,11 @@ async function commonBeforeAll() {
                ('software engineer', 150000, 0.356, 'c1'),
                ('arborist', 55000, 0, 'c3')`);
                
-  librarian = await db.query(`
+  const librarian = await db.query(`
                 SELECT id
                 FROM jobs
                 WHERE title = 'librarian'`);
-  librarianId = librarian.rows[0].id
+  const librarianId = librarian.rows[0].id
     
   await db.query(`
         INSERT INTO applications(username, job_id)

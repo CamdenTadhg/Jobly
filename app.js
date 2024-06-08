@@ -48,10 +48,6 @@ module.exports = app;
 
 
 //USE TEST-DRIVEN DEVELOPMENT
-//7 write tests and documentation for applications route SATURDAY
-//6 add post route to allow applications for jobs MONDAY
-//5 change output for get user info so that it lists jobids the user has applied for TUESDAY
-
 //4 add choosing random password functionality
 //3 add enum type to application state functionality
 //2 add technologies for jobs (table, model, display in appropriate places)
