@@ -1,0 +1,20 @@
+.JobList-search{
+    position: absolute;
+    top: 65px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.JobList-text-loading{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.JobList-jobs{
+    position: absolute;
+    top: 250px;
+    left: 50%;
+    transform: translate(-50%);
+}

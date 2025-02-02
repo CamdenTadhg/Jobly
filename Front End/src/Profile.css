@@ -1,0 +1,46 @@
+.Profile{
+    position: absolute;
+    top: 65px;
+    left: 50%;
+    transform: translate(-50%);
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: white;
+    padding: 15px;
+    width: 25vw;
+}
+
+.Profile label{
+    margin: 5px;
+}
+
+.Profile input{
+    margin: 0px 3px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.input-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Profile-text-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.disabled{
+    background-color: lightgrey;
+}
+
+.Profile-jobs{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top: 400px
+}

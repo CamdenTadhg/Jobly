@@ -1,0 +1,12 @@
+.CompanyCard{
+    text-decoration: none;
+}
+
+.CompanyCard-emps{
+    color: darkgrey;
+}
+
+.CompanyCard-card{
+    margin: 10px 0px;
+    background-color: #D2D0BA;
+}

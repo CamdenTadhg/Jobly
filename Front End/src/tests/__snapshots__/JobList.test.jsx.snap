@@ -1,0 +1,306 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches the snapshot 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div>
+        <div
+          class="JobList-search"
+        >
+          <div
+            class="SearchForm"
+          >
+            <form
+              class="SearchForm-form"
+            >
+              <div
+                class="input-item"
+              >
+                <label
+                  for="title"
+                >
+                  Title
+                  :
+                </label>
+                <input
+                  id="title"
+                  name="title"
+                  value=""
+                />
+              </div>
+              <div
+                class="input-item"
+              >
+                <label
+                  for="salary"
+                >
+                  Salary
+                  :
+                </label>
+                <input
+                  id="salary"
+                  name="salary"
+                  value=""
+                />
+              </div>
+              <div
+                class="input-item"
+              >
+                <label
+                  for="equity"
+                >
+                  Equity
+                  :
+                </label>
+                <input
+                  id="equity"
+                  name="equity"
+                  type="checkbox"
+                  value="false"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+        <div
+          class="JobList-jobs"
+        >
+          <div
+            class="JobCard-card card"
+          >
+            <div
+              class="card-body"
+            >
+              <div
+                class="card-title"
+              >
+                <b>
+                  Accommodation manager
+                </b>
+              </div>
+              <div>
+                Salary: 
+                126000
+              </div>
+              <div>
+                Equity: 
+                YES
+              </div>
+              <button
+                class="ApplyButton"
+                disabled=""
+              >
+                Applied
+              </button>
+            </div>
+          </div>
+          <div
+            class="JobCard-card card"
+          >
+            <div
+              class="card-body"
+            >
+              <div
+                class="card-title"
+              >
+                <b>
+                  Accountant, chartered certified
+                </b>
+              </div>
+              <div>
+                Salary: 
+                175000
+              </div>
+              <div>
+                Equity: 
+                YES
+              </div>
+              <button
+                class="ApplyButton"
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div>
+      <div
+        class="JobList-search"
+      >
+        <div
+          class="SearchForm"
+        >
+          <form
+            class="SearchForm-form"
+          >
+            <div
+              class="input-item"
+            >
+              <label
+                for="title"
+              >
+                Title
+                :
+              </label>
+              <input
+                id="title"
+                name="title"
+                value=""
+              />
+            </div>
+            <div
+              class="input-item"
+            >
+              <label
+                for="salary"
+              >
+                Salary
+                :
+              </label>
+              <input
+                id="salary"
+                name="salary"
+                value=""
+              />
+            </div>
+            <div
+              class="input-item"
+            >
+              <label
+                for="equity"
+              >
+                Equity
+                :
+              </label>
+              <input
+                id="equity"
+                name="equity"
+                type="checkbox"
+                value="false"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div
+        class="JobList-jobs"
+      >
+        <div
+          class="JobCard-card card"
+        >
+          <div
+            class="card-body"
+          >
+            <div
+              class="card-title"
+            >
+              <b>
+                Accommodation manager
+              </b>
+            </div>
+            <div>
+              Salary: 
+              126000
+            </div>
+            <div>
+              Equity: 
+              YES
+            </div>
+            <button
+              class="ApplyButton"
+              disabled=""
+            >
+              Applied
+            </button>
+          </div>
+        </div>
+        <div
+          class="JobCard-card card"
+        >
+          <div
+            class="card-body"
+          >
+            <div
+              class="card-title"
+            >
+              <b>
+                Accountant, chartered certified
+              </b>
+            </div>
+            <div>
+              Salary: 
+              175000
+            </div>
+            <div>
+              Equity: 
+              YES
+            </div>
+            <button
+              class="ApplyButton"
+            >
+              Apply
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

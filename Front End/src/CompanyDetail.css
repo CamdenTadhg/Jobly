@@ -1,0 +1,24 @@
+.CompanyDetail-text-loading{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.CompanyDetail-detail{
+    position: absolute;
+    top: 65px;
+    left: 50%;
+    transform: translate(-50%);
+    margin: 10px;
+    background-color: #D2D0BA;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.CompanyDetail-jobs{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top: 250px
+}

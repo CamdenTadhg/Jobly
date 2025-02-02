@@ -1,0 +1,13 @@
+body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+:root{
+    background-color: #7B9E87;
+    background-size: cover;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}

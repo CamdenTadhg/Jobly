@@ -1,0 +1,24 @@
+.NavBar{
+    background-color: #45565E;
+    font-weight: bold;
+    color: white;
+}
+
+.NavBar a{
+    color: white;
+    margin: 0px 10px;
+    text-decoration: none;
+}
+
+.NavBar a.active{
+    color: white;
+}
+
+.NavBar a:hover{
+    color: white;
+}
+
+.navbar-center{
+    padding-left: 8vw
+}
+
